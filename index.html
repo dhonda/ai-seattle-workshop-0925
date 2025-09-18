@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI for Educators: Interactive Syllabus</title>
+    <title>AI for Educators | Professional Development Course</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         * {
@@ -21,1053 +21,865 @@
             --danger-color: #ef4444;
             --dark-color: #1f2937;
             --light-color: #f8fafc;
+            --gray-50: #f9fafb;
             --gray-100: #f1f5f9;
             --gray-200: #e2e8f0;
             --gray-300: #cbd5e1;
             --gray-600: #475569;
             --gray-700: #334155;
             --gray-800: #1e293b;
+            --gray-900: #0f172a;
             --text-primary: #0f172a;
             --text-secondary: #64748b;
             --border-color: #e2e8f0;
             --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: var(--text-primary);
-            background-color: var(--light-color);
+            background: linear-gradient(135deg, var(--gray-50) 0%, #ffffff 100%);
+            overflow-x: hidden;
         }
 
-        .container {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        /* Navigation Sidebar */
-        .sidebar {
-            width: 320px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 2rem 0;
+        /* Header Navigation */
+        .header {
             position: fixed;
-            height: 100vh;
-            overflow-y: auto;
-            box-shadow: var(--shadow-lg);
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
             z-index: 1000;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
         }
 
-        .sidebar::-webkit-scrollbar {
-            width: 4px;
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .sidebar::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .sidebar::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 2px;
-        }
-
-        .sidebar-header {
-            padding: 0 2rem 2rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            margin-bottom: 1rem;
-        }
-
-        .sidebar-header h1 {
+        .logo {
+            display: flex;
+            align-items: center;
             font-size: 1.5rem;
             font-weight: 700;
-            margin-bottom: 0.5rem;
+            color: var(--primary-color);
         }
 
-        .sidebar-header p {
-            font-size: 0.9rem;
-            opacity: 0.8;
+        .logo i {
+            margin-right: 0.5rem;
+            font-size: 1.8rem;
         }
 
         .nav-menu {
+            display: flex;
             list-style: none;
-        }
-
-        .nav-item {
-            margin-bottom: 0.5rem;
+            gap: 2rem;
         }
 
         .nav-link {
-            display: flex;
-            align-items: center;
-            padding: 0.75rem 2rem;
-            color: rgba(255, 255, 255, 0.9);
+            color: var(--text-primary);
             text-decoration: none;
-            transition: all 0.3s ease;
-            border-left: 3px solid transparent;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
         }
 
         .nav-link:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
+            color: var(--primary-color);
         }
 
-        .nav-link.active {
-            background: rgba(255, 255, 255, 0.15);
-            border-left-color: var(--accent-color);
-            color: white;
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
         }
 
-        .nav-link i {
-            margin-right: 0.75rem;
-            width: 20px;
-            text-align: center;
-        }
-
-        .nav-subitem {
-            margin-left: 2rem;
-        }
-
-        .nav-subitem .nav-link {
-            padding: 0.5rem 2rem;
-            font-size: 0.9rem;
-        }
-
-        /* Progress Indicator */
-        .progress-container {
-            padding: 1rem 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .progress-label {
-            font-size: 0.8rem;
-            margin-bottom: 0.5rem;
-            opacity: 0.8;
-        }
-
-        .progress-bar {
+        .nav-link:hover::after {
             width: 100%;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 4px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            position: relative;
             overflow: hidden;
         }
 
-        .progress-fill {
-            height: 100%;
-            background: var(--accent-color);
-            width: 0%;
-            transition: width 0.5s ease;
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="rgba(255,255,255,0.1)"/><stop offset="100%" stop-color="rgba(255,255,255,0)"/></radialGradient></defs><circle cx="200" cy="200" r="100" fill="url(%23a)"/><circle cx="800" cy="400" r="150" fill="url(%23a)"/><circle cx="400" cy="800" r="120" fill="url(%23a)"/></svg>');
+            background-size: cover;
+            opacity: 0.1;
         }
 
-        /* Main Content */
-        .main-content {
-            flex: 1;
-            margin-left: 320px;
-            padding: 2rem 3rem;
-            max-width: calc(100vw - 320px);
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
         }
 
-        .content-section {
-            display: none;
-            animation: fadeIn 0.5s ease;
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
         }
 
-        .content-section.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Content Styling */
-        .section-header {
+        .hero-subtitle {
+            font-size: 1.3rem;
             margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 3px solid var(--primary-color);
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--accent-color);
+            color: var(--dark-color);
+        }
+
+        .btn-primary:hover {
+            background: #d97706;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-graphic {
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-graphic::before {
+            content: '';
+            position: absolute;
+            inset: 20px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--accent-color), #fbbf24);
+            opacity: 0.2;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        .hero-graphic i {
+            font-size: 8rem;
+            color: var(--accent-color);
+            z-index: 1;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.2; }
+            50% { transform: scale(1.1); opacity: 0.1; }
+        }
+
+        /* Course Navigation Section */
+        .course-nav {
+            padding: 6rem 0;
+            background: white;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
         }
 
         .section-title {
             font-size: 2.5rem;
             font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
         }
 
         .section-subtitle {
             font-size: 1.2rem;
             color: var(--text-secondary);
-            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        .card {
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .course-card {
             background: white;
-            border-radius: 12px;
+            border-radius: 16px;
             padding: 2rem;
-            margin-bottom: 2rem;
             box-shadow: var(--shadow);
             border: 1px solid var(--border-color);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
-        .card:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
+        .course-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+
+        .course-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-icon i {
+            font-size: 1.5rem;
+            color: white;
         }
 
         .card-title {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 600;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
         }
 
-        .card-title i {
-            margin-right: 0.5rem;
-            color: var(--accent-color);
+        .card-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .card-description {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .card-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            gap: 0.5rem;
+        }
+
+        .card-link:hover {
+            color: var(--secondary-color);
+            gap: 1rem;
+        }
+
+        .card-link i {
+            transition: transform 0.3s ease;
+        }
+
+        .card-link:hover i {
+            transform: translateX(4px);
+        }
+
+        /* Weekly Navigation */
+        .weekly-nav {
+            background: var(--gray-50);
+            padding: 6rem 0;
+        }
+
+        .week-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
         }
 
         .week-card {
-            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
-            border-left: 5px solid var(--primary-color);
+            background: white;
+            border-radius: 12px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .week-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
         }
 
         .week-number {
             display: inline-block;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
             background: var(--primary-color);
             color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
+            font-weight: 700;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+
+        .week-title {
+            font-size: 1.1rem;
             font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .essential-question {
-            background: var(--gray-100);
-            padding: 1rem;
-            border-radius: 8px;
-            margin: 1rem 0;
-            border-left: 4px solid var(--accent-color);
-        }
-
-        .essential-question strong {
-            color: var(--accent-color);
-        }
-
-        .topic-list, .activity-list {
-            list-style: none;
-            margin: 1rem 0;
-        }
-
-        .topic-list li, .activity-list li {
-            padding: 0.5rem 0;
-            padding-left: 1.5rem;
-            position: relative;
-        }
-
-        .topic-list li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: var(--success-color);
-            font-weight: bold;
-        }
-
-        .activity-list li::before {
-            content: '•';
-            position: absolute;
-            left: 0;
-            color: var(--primary-color);
-            font-size: 1.5rem;
-            line-height: 1.2;
-        }
-
-        .tool-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin: 1rem 0;
-        }
-
-        .tool-item {
-            background: white;
-            padding: 1rem;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            text-align: center;
-            transition: all 0.2s ease;
-        }
-
-        .tool-item:hover {
-            border-color: var(--primary-color);
-            transform: translateY(-2px);
-        }
-
-        .tool-name {
-            font-weight: 600;
-            color: var(--primary-color);
+            color: var(--text-primary);
             margin-bottom: 0.5rem;
         }
 
-        .tool-description {
+        .week-topic {
             font-size: 0.9rem;
             color: var(--text-secondary);
         }
 
-        .grade-levels {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin: 1rem 0;
-        }
-
-        .grade-badge {
-            background: var(--primary-color);
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-
-        .assessment-type {
-            background: var(--success-color);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            display: inline-block;
-            margin: 0.25rem;
-            font-size: 0.9rem;
-        }
-
-        .collapsible {
-            cursor: pointer;
-            padding: 1rem;
-            background: var(--gray-100);
-            border: none;
-            width: 100%;
-            text-align: left;
-            border-radius: 8px;
-            margin: 0.5rem 0;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: background-color 0.2s ease;
-        }
-
-        .collapsible:hover {
-            background: var(--gray-200);
-        }
-
-        .collapsible.active {
-            background: var(--primary-color);
-            color: white;
-        }
-
-        .collapsible-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
+        /* Features Section */
+        .features {
+            padding: 6rem 0;
             background: white;
-            border-radius: 0 0 8px 8px;
         }
 
-        .collapsible-content.active {
-            max-height: 500px;
-            padding: 1rem;
-            border: 1px solid var(--border-color);
-            border-top: none;
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color)20, var(--accent-color)20);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            border: 3px solid var(--primary-color);
+        }
+
+        .feature-icon i {
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--dark-color) 0%, var(--gray-800) 100%);
+            color: white;
+            padding: 6rem 0;
+            text-align: center;
+        }
+
+        .cta-content h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .cta-content p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--gray-900);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 3rem 0 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: white;
+        }
+
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            opacity: 0.6;
         }
 
         /* Mobile Responsive */
         @media (max-width: 768px) {
-            .sidebar {
-                transform: translateX(-100%);
-                width: 280px;
+            .nav-menu {
+                display: none;
             }
 
-            .sidebar.mobile-open {
-                transform: translateX(0);
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
             }
 
-            .main-content {
-                margin-left: 0;
-                max-width: 100vw;
-                padding: 1rem;
+            .hero-content h1 {
+                font-size: 2.5rem;
             }
 
-            .mobile-menu-btn {
-                position: fixed;
-                top: 1rem;
-                left: 1rem;
-                z-index: 1001;
-                background: var(--primary-color);
-                color: white;
-                border: none;
-                padding: 0.75rem;
-                border-radius: 8px;
-                cursor: pointer;
-                box-shadow: var(--shadow);
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .hero-graphic {
+                width: 300px;
+                height: 300px;
+            }
+
+            .hero-graphic i {
+                font-size: 6rem;
             }
 
             .section-title {
                 font-size: 2rem;
             }
 
-            .card {
-                padding: 1rem;
+            .course-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .week-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .cta-content h2 {
+                font-size: 2rem;
             }
         }
 
-        /* Utility Classes */
-        .text-center { text-align: center; }
-        .mb-1 { margin-bottom: 0.5rem; }
-        .mb-2 { margin-bottom: 1rem; }
-        .mb-3 { margin-bottom: 1.5rem; }
-        .mt-2 { margin-top: 1rem; }
-        .p-2 { padding: 1rem; }
-        .font-bold { font-weight: 600; }
-        .text-primary { color: var(--primary-color); }
-        .text-secondary { color: var(--text-secondary); }
+        @media (max-width: 480px) {
+            .hero-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .week-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
-    <button class="mobile-menu-btn" onclick="toggleMobileMenu()" style="display: none;">
-        <i class="fas fa-bars"></i>
-    </button>
+    <!-- Header Navigation -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-robot"></i>
+                AI for Educators
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#course" class="nav-link">Course</a></li>
+                    <li><a href="#weeks" class="nav-link">Weeks</a></li>
+                    <li><a href="#features" class="nav-link">Features</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-    <div class="container">
-        <!-- Sidebar Navigation -->
-        <nav class="sidebar" id="sidebar">
-            <div class="sidebar-header">
-                <h1><i class="fas fa-robot"></i> AI for Educators</h1>
-                <p>Professional Development Course</p>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Master AI in Education</h1>
+                <p class="hero-subtitle">Comprehensive professional development for K-12 educators. Learn to integrate AI tools ethically and effectively across all subjects.</p>
+                
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">6</div>
+                        <div class="stat-label">Weeks</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Hours</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">20+</div>
+                        <div class="stat-label">AI Tools</div>
+                    </div>
+                </div>
+
+                <div class="cta-buttons">
+                    <a href="#course" class="btn btn-primary">
+                        <i class="fas fa-play"></i>
+                        Get Started
+                    </a>
+                    <a href="#syllabus" class="btn btn-secondary">
+                        <i class="fas fa-file-alt"></i>
+                        View Syllabus
+                    </a>
+                </div>
             </div>
             
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="#" class="nav-link active" data-section="overview">
-                        <i class="fas fa-home"></i>
-                        Course Overview
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" data-section="objectives">
-                        <i class="fas fa-bullseye"></i>
-                        Learning Objectives
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" data-section="week1">
-                        <i class="fas fa-brain"></i>
-                        Week 1: AI Fundamentals
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" data-section="week2">
-                        <i class="fas fa-tools"></i>
-                        Week 2: AI Tools
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" data-section="week3">
-                        <i class="fas fa-shield-alt"></i>
-                        Week 3: Ethics & Responsibility
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" data-section="week4">
-                        <i class="fas fa-graduation-cap"></i>
-                        Week 4: Teaching AI Literacy
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" data-section="week5">
+            <div class="hero-visual">
+                <div class="hero-graphic">
+                    <i class="fas fa-brain"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Navigation Section -->
+    <section class="course-nav" id="course">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Course Navigation</h2>
+                <p class="section-subtitle">Access your complete learning journey with interactive resources and comprehensive materials</p>
+            </div>
+            
+            <div class="course-grid">
+                <div class="course-card">
+                    <div class="card-icon">
                         <i class="fas fa-book-open"></i>
-                        Week 5: Subject Integration
+                    </div>
+                    <h3 class="card-title">Complete Syllabus</h3>
+                    <p class="card-subtitle">Interactive Course Guide</p>
+                    <p class="card-description">Access the full interactive syllabus with learning objectives, weekly breakdowns, assessment criteria, and all course policies.</p>
+                    <a href="#" class="card-link" onclick="openSyllabus()">
+                        View Syllabus <i class="fas fa-arrow-right"></i>
                     </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" data-section="week6">
-                        <i class="fas fa-rocket"></i>
-                        Week 6: Implementation
+                </div>
+
+                <div class="course-card">
+                    <div class="card-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3 class="card-title">Weekly Modules</h3>
+                    <p class="card-subtitle">Structured Learning Path</p>
+                    <p class="card-description">Navigate through each week's content, activities, and resources. Track your progress and revisit materials anytime.</p>
+                    <a href="#weeks" class="card-link">
+                        Browse Weeks <i class="fas fa-arrow-right"></i>
                     </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" data-section="assessment">
-                        <i class="fas fa-clipboard-check"></i>
-                        Assessment
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" data-section="resources">
-                        <i class="fas fa-library"></i>
-                        Resources
-                    </a>
-                </li>
-            </ul>
-            
-            <div class="progress-container">
-                <div class="progress-label">Course Progress</div>
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progressFill"></div>
-                </div>
-                <div class="progress-label" id="progressText">0% Complete</div>
-            </div>
-        </nav>
-
-        <!-- Main Content Area -->
-        <main class="main-content">
-            <!-- Course Overview Section -->
-            <section class="content-section active" id="overview">
-                <div class="section-header">
-                    <h1 class="section-title">AI for Educators</h1>
-                    <p class="section-subtitle">Building Digital Literacy and Ethical Practice</p>
                 </div>
 
-                <div class="card">
-                    <div class="card-title">
-                        <i class="fas fa-info-circle"></i>
-                        Course Information
-                    </div>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
-                        <div>
-                            <strong>Duration:</strong> 6 weeks<br>
-                            <strong>Total Hours:</strong> 12 hours<br>
-                            <strong>Format:</strong> Hybrid
-                        </div>
-                        <div>
-                            <strong>Target Audience:</strong> K-12 educators<br>
-                            <strong>Experience Level:</strong> All levels<br>
-                            <strong>Subject Areas:</strong> Cross-curricular
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">
-                        <i class="fas fa-lightbulb"></i>
-                        Course Description
-                    </div>
-                    <p>This comprehensive course introduces K-12 educators to artificial intelligence fundamentals, practical classroom applications, and ethical considerations. Participants will develop AI literacy, explore educational tools, and create strategies for responsible AI integration across diverse subject areas and grade levels.</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">
-                        <i class="fas fa-users"></i>
-                        Differentiated Learning Approach
-                    </div>
-                    <p>This course is designed to accommodate educators with varying technology experience levels:</p>
-                    <ul class="topic-list">
-                        <li><strong>Beginners:</strong> Focus on concrete examples and basic vocabulary</li>
-                        <li><strong>Intermediate:</strong> Explore practical applications and implementation strategies</li>
-                        <li><strong>Advanced:</strong> Dive into technical concepts and leadership opportunities</li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- Learning Objectives Section -->
-            <section class="content-section" id="objectives">
-                <div class="section-header">
-                    <h1 class="section-title">Learning Objectives</h1>
-                    <p class="section-subtitle">What you'll accomplish by the end of this course</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">
-                        <i class="fas fa-check-circle"></i>
-                        By Course Completion, You Will Be Able To:
-                    </div>
-                    <ul class="topic-list">
-                        <li>Understand fundamental AI concepts and their educational implications</li>
-                        <li>Evaluate AI tools critically for classroom appropriateness and effectiveness</li>
-                        <li>Implement ethical AI practices and teach AI literacy to students</li>
-                        <li>Design subject-specific activities incorporating AI tools responsibly</li>
-                        <li>Develop policies and procedures for AI use in your educational context</li>
-                        <li>Model digital citizenship and critical thinking about AI for students</li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- Week 1 Content -->
-            <section class="content-section" id="week1">
-                <div class="section-header">
-                    <h1 class="section-title">Week 1: AI Fundamentals</h1>
-                    <p class="section-subtitle">What Every Educator Needs to Know</p>
-                </div>
-
-                <div class="card week-card">
-                    <div class="week-number">Week 1</div>
-                    <div class="essential-question">
-                        <strong>Essential Questions:</strong> What is AI? How does it impact education?
-                    </div>
-
-                    <div class="card-title">
-                        <i class="fas fa-brain"></i>
-                        Topics Covered
-                    </div>
-                    <ul class="topic-list">
-                        <li>Demystifying AI: Basic definitions and concepts (machine learning, algorithms, data)</li>
-                        <li>AI in daily life: Examples students already encounter</li>
-                        <li>Educational landscape: How AI is changing teaching and learning</li>
-                        <li>Myths vs. reality: Common misconceptions about AI capabilities</li>
-                    </ul>
-
-                    <div class="card-title mt-2">
-                        <i class="fas fa-hands-on"></i>
-                        Activities
-                    </div>
-                    <ul class="activity-list">
-                        <li>AI scavenger hunt: Identifying AI in everyday tools</li>
-                        <li>Small group discussions: Sharing current AI experiences</li>
-                        <li>Hands-on exploration: Testing simple AI tools (voice assistants, translation apps)</li>
-                    </ul>
-
-                    <button class="collapsible">Differentiation Strategies</button>
-                    <div class="collapsible-content">
-                        <strong>Beginners:</strong> Focus on concrete examples and basic vocabulary with guided exploration<br><br>
-                        <strong>Advanced:</strong> Explore technical concepts and help mentor other participants
-                    </div>
-                </div>
-            </section>
-
-            <!-- Week 2 Content -->
-            <section class="content-section" id="week2">
-                <div class="section-header">
-                    <h1 class="section-title">Week 2: AI Tools for the Classroom</h1>
-                    <p class="section-subtitle">Practical Applications</p>
-                </div>
-
-                <div class="card week-card">
-                    <div class="week-number">Week 2</div>
-                    <div class="essential-question">
-                        <strong>Essential Questions:</strong> Which AI tools can enhance teaching and learning? How do we choose appropriate tools?
-                    </div>
-
-                    <div class="card-title">
+                <div class="course-card">
+                    <div class="card-icon">
                         <i class="fas fa-tools"></i>
-                        Featured AI Tools
                     </div>
-                    <div class="tool-grid">
-                        <div class="tool-item">
-                            <div class="tool-name">ChatGPT</div>
-                            <div class="tool-description">Lesson planning & content creation</div>
-                        </div>
-                        <div class="tool-item">
-                            <div class="tool-name">Canva AI</div>
-                            <div class="tool-description">Visual design & presentations</div>
-                        </div>
-                        <div class="tool-item">
-                            <div class="tool-name">Grammarly</div>
-                            <div class="tool-description">Writing support & feedback</div>
-                        </div>
-                        <div class="tool-item">
-                            <div class="tool-name">Khan Academy Khanmigo</div>
-                            <div class="tool-description">Personalized tutoring</div>
-                        </div>
-                        <div class="tool-item">
-                            <div class="tool-name">Quizizz AI</div>
-                            <div class="tool-description">Quiz generation & assessment</div>
-                        </div>
-                        <div class="tool-item">
-                            <div class="tool-name">Gradescope</div>
-                            <div class="tool-description">Automated grading assistance</div>
-                        </div>
-                    </div>
-
-                    <button class="collapsible">Tool Categories</button>
-                    <div class="collapsible-content">
-                        <strong>Content Creation:</strong> Tools for lesson planning, quiz generation, presentation aids<br><br>
-                        <strong>Student Support:</strong> Writing assistants, tutoring platforms, accessibility features<br><br>
-                        <strong>Administrative:</strong> Grading assistance, feedback generation, communication tools
-                    </div>
+                    <h3 class="card-title">AI Tools Library</h3>
+                    <p class="card-subtitle">Curated Resource Collection</p>
+                    <p class="card-description">Explore 20+ educator-approved AI tools with hands-on tutorials, best practices, and implementation guides.</p>
+                    <a href="#" class="card-link" onclick="openWeek('week2')">
+                        Explore Tools <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
-            </section>
+            </div>
+        </div>
+    </section>
 
-            <!-- Week 3 Content -->
-            <section class="content-section" id="week3">
-                <div class="section-header">
-                    <h1 class="section-title">Week 3: Responsible AI Use</h1>
-                    <p class="section-subtitle">Ethics and Best Practices</p>
+    <!-- Weekly Navigation -->
+    <section class="weekly-nav" id="weeks">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Weekly Learning Modules</h2>
+                <p class="section-subtitle">Structured progression through AI literacy, tools, ethics, and implementation</p>
+            </div>
+            
+            <div class="week-grid">
+                <div class="week-card" onclick="openWeek('week1')">
+                    <div class="week-number">1</div>
+                    <h3 class="week-title">AI Fundamentals</h3>
+                    <p class="week-topic">Understanding AI Basics</p>
                 </div>
+                
+                <div class="week-card" onclick="openWeek('week2')">
+                    <div class="week-number">2</div>
+                    <h3 class="week-title">AI Tools</h3>
+                    <p class="week-topic">Classroom Applications</p>
+                </div>
+                
+                <div class="week-card" onclick="openWeek('week3')">
+                    <div class="week-number">3</div>
+                    <h3 class="week-title">Ethics & Responsibility</h3>
+                    <p class="week-topic">Best Practices</p>
+                </div>
+                
+                <div class="week-card" onclick="openWeek('week4')">
+                    <div class="week-number">4</div>
+                    <h3 class="week-title">Teaching AI Literacy</h3>
+                    <p class="week-topic">Student Learning</p>
+                </div>
+                
+                <div class="week-card" onclick="openWeek('week5')">
+                    <div class="week-number">5</div>
+                    <h3 class="week-title">Subject Integration</h3>
+                    <p class="week-topic">Cross-Curricular AI</p>
+                </div>
+                
+                <div class="week-card" onclick="openWeek('week6')">
+                    <div class="week-number">6</div>
+                    <h3 class="week-title">Implementation</h3>
+                    <p class="week-topic">Planning & Action</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                <div class="card week-card">
-                    <div class="week-number">Week 3</div>
-                    <div class="essential-question">
-                        <strong>Essential Questions:</strong> What are our responsibilities when using AI in education? How do we use AI ethically?
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Course Features</h2>
+                <p class="section-subtitle">Designed for educators of all technology experience levels</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
                     </div>
-
-                    <div class="card-title">
+                    <h3 class="feature-title">Differentiated Learning</h3>
+                    <p class="feature-description">Accommodates both tech-novice and advanced educators with tailored activities and support levels.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-hands-on"></i>
+                    </div>
+                    <h3 class="feature-title">Hands-On Practice</h3>
+                    <p class="feature-description">Interactive tool exploration, real classroom scenarios, and practical implementation strategies.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
                         <i class="fas fa-shield-alt"></i>
-                        Key Ethical Principles
                     </div>
-                    <ul class="topic-list">
-                        <li><strong>Transparency:</strong> Always disclose AI use to students and parents</li>
-                        <li><strong>Privacy:</strong> Protect student data and comply with FERPA/COPPA</li>
-                        <li><strong>Equity:</strong> Ensure AI tools don't exacerbate existing inequalities</li>
-                        <li><strong>Authenticity:</strong> Maintain academic integrity standards</li>
-                        <li><strong>Agency:</strong> Preserve human judgment in educational decisions</li>
-                    </ul>
-
-                    <div class="card-title mt-2">
-                        <i class="fas fa-clipboard-list"></i>
-                        Week 3 Deliverable
-                    </div>
-                    <p><strong>Draft Classroom AI Policy Document</strong> - Create a comprehensive policy for AI use in your classroom that addresses ethical considerations, student guidelines, and implementation procedures.</p>
+                    <h3 class="feature-title">Ethical Framework</h3>
+                    <p class="feature-description">Comprehensive coverage of AI ethics, privacy protection, and responsible use in educational settings.</p>
                 </div>
-            </section>
-
-            <!-- Week 4 Content -->
-            <section class="content-section" id="week4">
-                <div class="section-header">
-                    <h1 class="section-title">Week 4: Teaching AI Literacy</h1>
-                    <p class="section-subtitle">Preparing Students for an AI World</p>
-                </div>
-
-                <div class="card week-card">
-                    <div class="week-number">Week 4</div>
-                    <div class="essential-question">
-                        <strong>Essential Questions:</strong> What should students know about AI? How can we build critical thinking about AI across subjects?
-                    </div>
-
-                    <div class="card-title">
-                        <i class="fas fa-layer-group"></i>
-                        Grade-Level Progressions
-                    </div>
-                    <div class="grade-levels">
-                        <div class="grade-badge">K-2: AI as "Smart Helpers"</div>
-                        <div class="grade-badge">3-5: How AI Learns from Data</div>
-                        <div class="grade-badge">6-8: AI Bias & Decision-Making</div>
-                        <div class="grade-badge">9-12: Complex AI Systems & Ethics</div>
-                    </div>
-
-                    <button class="collapsible">Sample Lesson Ideas by Grade Level</button>
-                    <div class="collapsible-content">
-                        <strong>Elementary:</strong> "Teaching AI to Recognize Animals" (classification concepts)<br><br>
-                        <strong>Middle:</strong> "Is This News Real?" (evaluating AI-generated content)<br><br>
-                        <strong>High School:</strong> "AI and Career Futures" (workforce preparation and ethics)
-                    </div>
-                </div>
-            </section>
-
-            <!-- Week 5 Content -->
-            <section class="content-section" id="week5">
-                <div class="section-header">
-                    <h1 class="section-title">Week 5: Subject-Specific Applications</h1>
-                    <p class="section-subtitle">AI Integration Across Disciplines</p>
-                </div>
-
-                <div class="card week-card">
-                    <div class="week-number">Week 5</div>
-                    <div class="essential-question">
-                        <strong>Essential Questions:</strong> How can AI enhance learning in my specific subject area? What are subject-specific considerations?
-                    </div>
-
-                    <button class="collapsible">Language Arts Applications</button>
-                    <div class="collapsible-content">
-                        Writing support tools, literature analysis, creative storytelling, grammar assistance, and reading comprehension aids.
-                    </div>
-
-                    <button class="collapsible">Mathematics Applications</button>
-                    <div class="collapsible-content">
-                        Problem-solving assistance, data visualization tools, adaptive practice platforms, and mathematical modeling.
-                    </div>
-
-                    <button class="collapsible">Science Applications</button>
-                    <div class="collapsible-content">
-                        Data analysis tools, simulation software, research assistance, and laboratory data interpretation.
-                    </div>
-
-                    <button class="collapsible">Social Studies Applications</button>
-                    <div class="collapsible-content">
-                        Historical research tools, data interpretation, perspective analysis, and current events evaluation.
-                    </div>
-
-                    <button class="collapsible">Arts Applications</button>
-                    <div class="collapsible-content">
-                        Creative tools for visual arts, music composition assistance, inspiration generation, and technique tutorials.
-                    </div>
-
-                    <button class="collapsible">World Languages Applications</button>
-                    <div class="collapsible-content">
-                        Translation tools, pronunciation guides, conversation practice, and cultural context assistance.
-                    </div>
-                </div>
-            </section>
-
-            <!-- Week 6 Content -->
-            <section class="content-section" id="week6">
-                <div class="section-header">
-                    <h1 class="section-title">Week 6: Implementation Planning</h1>
-                    <p class="section-subtitle">Taking Action in Your Classroom</p>
-                </div>
-
-                <div class="card week-card">
-                    <div class="week-number">Week 6</div>
-                    <div class="essential-question">
-                        <strong>Essential Questions:</strong> How will I implement what I've learned? How will I continue growing in AI literacy?
-                    </div>
-
-                    <div class="card-title">
-                        <i class="fas fa-rocket"></i>
-                        Implementation Framework
-                    </div>
-                    <ol style="list-style: decimal; margin-left: 2rem;">
-                        <li><strong>Start Small:</strong> Begin with one tool in one class</li>
-                        <li><strong>Document:</strong> Keep records of successes and challenges</li>
-                        <li><strong>Reflect:</strong> Regular evaluation of AI integration effectiveness</li>
-                        <li><strong>Share:</strong> Contribute to school/district AI learning community</li>
-                        <li><strong>Grow:</strong> Gradually expand successful practices</li>
-                    </ol>
-
-                    <div class="card-title mt-2">
-                        <i class="fas fa-project-diagram"></i>
-                        Final Projects
-                    </div>
-                    <ul class="activity-list">
-                        <li>Personal AI integration plan for the coming semester</li>
-                        <li>Resource toolkit for ongoing reference</li>
-                        <li>Peer mentoring partnerships establishment</li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- Assessment Section -->
-            <section class="content-section" id="assessment">
-                <div class="section-header">
-                    <h1 class="section-title">Assessment & Evaluation</h1>
-                    <p class="section-subtitle">How your learning will be measured</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">
-                        <i class="fas fa-chart-line"></i>
-                        Formative Assessments
-                    </div>
-                    <div class="assessment-type">Weekly Reflection Journals</div>
-                    <div class="assessment-type">Peer Discussion Participation</div>
-                    <div class="assessment-type">Tool Exploration Documentation</div>
-                    <div class="assessment-type">Case Study Analyses</div>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">
-                        <i class="fas fa-clipboard-check"></i>
-                        Summative Assessments
-                    </div>
-                    <ul class="topic-list">
-                        <li><strong>Week 3:</strong> Classroom AI Policy Creation</li>
-                        <li><strong>Week 5:</strong> Subject-specific Lesson Plan with AI Integration</li>
-                        <li><strong>Week 6:</strong> Implementation Plan Presentation</li>
-                        <li><strong>Final:</strong> Digital Portfolio of Learning Artifacts</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
                         <i class="fas fa-certificate"></i>
-                        Professional Learning Credits
                     </div>
-                    <ul class="topic-list">
-                        <li>12 contact hours for course completion</li>
-                        <li>Additional credit opportunities for implementation documentation</li>
-                        <li>Continuing education units available</li>
-                    </ul>
+                    <h3 class="feature-title">Professional Credits</h3>
+                    <p class="feature-description">Earn 12 contact hours of professional development credit with continuing education units available.</p>
                 </div>
-            </section>
+            </div>
+        </div>
+    </section>
 
-            <!-- Resources Section -->
-            <section class="content-section" id="resources">
-                <div class="section-header">
-                    <h1 class="section-title">Resources & Support</h1>
-                    <p class="section-subtitle">Everything you need for success</p>
+    <!-- Call to Action -->
+    <section class="cta-section">
+        <div class="section-container">
+            <div class="cta-content">
+                <h2>Ready to Transform Your Teaching?</h2>
+                <p>Join hundreds of educators who are already integrating AI into their classrooms responsibly and effectively.</p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-primary" onclick="openSyllabus()">
+                        <i class="fas fa-rocket"></i>
+                        Start Your Journey
+                    </a>
+                    <a href="#contact" class="btn btn-secondary">
+                        <i class="fas fa-envelope"></i>
+                        Get More Info
+                    </a>
                 </div>
+            </div>
+        </div>
+    </section>
 
-                <div class="card">
-                    <div class="card-title">
-                        <i class="fas fa-book"></i>
-                        Required Materials
-                    </div>
-                    <ul class="topic-list">
-                        <li>Course packet with readings and handouts</li>
-                        <li>Access to laptop/tablet for hands-on activities</li>
-                        <li>School email for tool account creation</li>
-                        <li>Notebook for reflection and planning</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">
-                        <i class="fas fa-graduation-cap"></i>
-                        Recommended Reading
-                    </div>
-                    <ul class="topic-list">
-                        <li>"Teaching AI" by Michelle Zimmerman</li>
-                        <li>"The AI Classroom" by Dan Fitzpatrick</li>
-                        <li>Selected articles from EdTech and AI education publications</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">
-                        <i class="fas fa-life-ring"></i>
-                        Ongoing Support
-                    </div>
-                    <ul class="topic-list">
-                        <li>Monthly virtual check-in sessions</li>
-                        <li>Private online community for questions and sharing</li>
-                        <li>Resource library with updated tool reviews</li>
-                        <li>Optional advanced workshops throughout the year</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">
-                        <i class="fas fa-laptop"></i>
-                        Technology Requirements
-                    </div>
-                    <ul class="topic-list">
-                        <li>Basic computer skills (file management, web browsing, email)</li>
-                        <li>Willingness to try new digital tools</li>
-                        <li>No prior AI experience necessary</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">
-                        <i class="fas fa-user-tie"></i>
-                        Instructor Information
-                    </div>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
-                        <div>
-                            <strong>Course Facilitator:</strong> [Name]<br>
-                            <strong>Contact:</strong> [Email] | [Phone]<br>
-                            <strong>Office Hours:</strong> By appointment
-                        </div>
-                        <div>
-                            <strong>Response Time:</strong> Within 24 hours<br>
-                            <strong>Support Philosophy:</strong> Growth mindset approach with differentiated support
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">
-                        <i class="fas fa-gavel"></i>
-                        Course Policies
-                    </div>
-                    
-                    <button class="collapsible">Attendance Policy</button>
-                    <div class="collapsible-content">
-                        Regular attendance is essential due to the hands-on, collaborative nature of the course. Make-up sessions available for excused absences.
-                    </div>
-
-                    <button class="collapsible">Technology Use Policy</button>
-                    <div class="collapsible-content">
-                        Participants will use various AI tools during class. All tool use is voluntary, and alternative activities are provided for those uncomfortable with specific platforms.
-                    </div>
-
-                    <button class="collapsible">Privacy & Confidentiality</button>
-                    <div class="collapsible-content">
-                        Student information should never be input into AI tools. Use fictional examples or anonymized data for all practice activities.
-                    </div>
-
-                    <button class="collapsible">Academic Integrity</button>
-                    <div class="collapsible-content">
-                        While learning about AI tools, all course assignments should represent participants' original thinking and reflection, with appropriate attribution for AI assistance.
-                    </div>
-                </div>
-            </section>
-        </main>
-    </div>
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#" class="footer-link">Course Syllabus</a>
+                <a href="#" class="footer-link">Weekly Modules</a>
+                <a href="#" class="footer-link">AI Tools</a>
+                <a href="#" class="footer-link">Resources</a>
+                <a href="#" class="footer-link">Support</a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 AI for Educators Professional Development Course. All rights reserved.</p>
+                <p>Contact: <a href="mailto:info@aieducators.com" style="color: var(--accent-color);">info@aieducators.com</a> | Phone: (555) 123-4567</p>
+            </div>
+        </div>
+    </footer>
 
     <script>
         // Navigation functionality
-        const navLinks = document.querySelectorAll('.nav-link');
-        const contentSections = document.querySelectorAll('.content-section');
-        const progressFill = document.getElementById('progressFill');
-        const progressText = document.getElementById('progressText');
-        
-        // Track visited sections for progress
-        let visitedSections = new Set(['overview']);
-        const totalSections = navLinks.length;
-
-        // Add click event listeners to navigation links
-        navLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Remove active class from all links and sections
-                navLinks.forEach(l => l.classList.remove('active'));
-                contentSections.forEach(s => s.classList.remove('active'));
-                
-                // Add active class to clicked link
-                this.classList.add('active');
-                
-                // Show corresponding content section
-                const targetSection = this.getAttribute('data-section');
-                document.getElementById(targetSection).classList.add('active');
-                
-                // Track visited sections
-                visitedSections.add(targetSection);
-                updateProgress();
-                
-                // Scroll to top of content
-                document.querySelector('.main-content').scrollTop = 0;
-            });
-        });
-
-        // Update progress bar
-        function updateProgress() {
-            const progressPercentage = (visitedSections.size / totalSections) * 100;
-            progressFill.style.width = progressPercentage + '%';
-            progressText.textContent = Math.round(progressPercentage) + '% Complete';
+        function openSyllabus() {
+            // In a real implementation, this would navigate to the syllabus page
+            alert('Opening Interactive Syllabus...\n\nThis would navigate to the full syllabus with all course details, learning objectives, and weekly content.');
         }
 
-        // Collapsible content functionality
-        const collapsibles = document.querySelectorAll('.collapsible');
-        collapsibles.forEach(button => {
-            button.addEventListener('click', function() {
-                this.classList.toggle('active');
-                const content = this.nextElementSibling;
-                content.classList.toggle('active');
-            });
-        });
-
-        // Mobile menu functionality
-        function toggleMobileMenu() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('mobile-open');
+        function openWeek(weekId) {
+            // In a real implementation, this would navigate to the specific week page
+            const weekTitles = {
+                'week1': 'Week 1: AI Fundamentals',
+                'week2': 'Week 2: AI Tools for the Classroom',
+                'week3': 'Week 3: Responsible AI Use',
+                'week4': 'Week 4: Teaching AI Literacy',
+                'week5': 'Week 5: Subject-Specific Applications',
+                'week6': 'Week 6: Implementation Planning'
+            };
+            
+            alert(`Opening ${weekTitles[weekId]}...\n\nThis would navigate to the detailed content for this week including activities, resources, and assignments.`);
         }
 
-        // Close mobile menu when clicking on content
-        document.querySelector('.main-content').addEventListener('click', function() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.remove('mobile-open');
-        });
-
-        // Responsive design handling
-        function handleResize() {
-            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-            if (window.innerWidth <= 768) {
-                mobileMenuBtn.style.display = 'block';
-            } else {
-                mobileMenuBtn.style.display = 'none';
-                document.getElementById('sidebar').classList.remove('mobile-open');
-            }
-        }
-
-        // Initialize
-        window.addEventListener('resize', handleResize);
-        handleResize(); // Call on page load
-        updateProgress(); // Initialize progress
-
-        // Smooth scrolling for better UX
+        // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1081,80 +893,8 @@
             });
         });
 
-        // Add hover effects to cards
-        const cards = document.querySelectorAll('.card');
-        cards.forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-2px)';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0)';
-            });
-        });
-
-        // Keyboard navigation support
-        document.addEventListener('keydown', function(e) {
-            if (e.altKey && e.key >= '1' && e.key <= '9') {
-                const index = parseInt(e.key) - 1;
-                if (navLinks[index]) {
-                    navLinks[index].click();
-                }
-            }
-        });
-
-        // Add accessibility improvements
-        navLinks.forEach((link, index) => {
-            link.setAttribute('aria-label', `Navigate to ${link.textContent.trim()}`);
-            link.setAttribute('tabindex', '0');
-        });
-
-        // Add focus management for better accessibility
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Tab') {
-                // Ensure focus is visible
-                document.body.classList.add('keyboard-navigation');
-            }
-        });
-
-        document.addEventListener('mousedown', function() {
-            document.body.classList.remove('keyboard-navigation');
-        });
-    </script>
-
-    <style>
-        /* Additional styles for accessibility */
-        .keyboard-navigation *:focus {
-            outline: 2px solid var(--primary-color) !important;
-            outline-offset: 2px !important;
-        }
-
-        /* Loading animation */
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        .loading {
-            animation: pulse 1.5s infinite;
-        }
-
-        /* Print styles */
-        @media print {
-            .sidebar {
-                display: none;
-            }
-            
-            .main-content {
-                margin-left: 0;
-                max-width: 100%;
-            }
-            
-            .content-section {
-                display: block !important;
-                page-break-after: always;
-            }
-        }
-    </style>
-</body>
-</html>
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255,
