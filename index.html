@@ -624,7 +624,7 @@
     <!-- Header Navigation -->
     <header class="header">
         <div class="nav-container">
-            <a href = "#" class="logo" onclick="scrollToTop()">
+            <a href="#" class="logo" onclick="scrollToTop()">
                 <i class="fas fa-robot"></i>
                 AI for Educators
             </a>
@@ -866,12 +866,14 @@
                 behavior: 'smooth'
             });
         }
-        function openSyllabus() {
+
+        function () {
             // Navigate to the syllabus page
             window.location.href = 'syllabus.html';
         }
 
         function openWeek(weekId) {
+            console.log('openWeek called with:', weekId);
             // Navigate to the specific week page
             window.location.href = `${weekId}.html`;
         }
