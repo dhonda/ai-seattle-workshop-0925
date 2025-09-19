@@ -666,7 +666,7 @@
                         <i class="fas fa-play"></i>
                         Get Started
                     </a>
-                    <a href="#syllabus" class="btn btn-secondary">
+                    <a href="syllabus.html" class="btn btn-secondary">
                         <i class="fas fa-file-alt"></i>
                         View Syllabus
                     </a>
@@ -861,22 +861,14 @@
     <script>
         // Navigation functionality
         function openSyllabus() {
-            // In a real implementation, this would navigate to the syllabus page
-            alert('Opening Interactive Syllabus...\n\nThis would navigate to the full syllabus with all course details, learning objectives, and weekly content.');
+            // Navigate to the syllabus page
+            window.location.href = 'syllabus.html';
         }
 
         function openWeek(weekId) {
-            // In a real implementation, this would navigate to the specific week page
-            const weekTitles = {
-                'week1': 'Week 1: AI Fundamentals',
-                'week2': 'Week 2: AI Tools for the Classroom',
-                'week3': 'Week 3: Responsible AI Use',
-                'week4': 'Week 4: Teaching AI Literacy',
-                'week5': 'Week 5: Subject-Specific Applications',
-                'week6': 'Week 6: Implementation Planning'
+            // Navigate to the specific week page
+            window.location.href = '${weekId}.html'
             };
-            
-            alert(`Opening ${weekTitles[weekId]}...\n\nThis would navigate to the detailed content for this week including activities, resources, and assignments.`);
         }
 
         // Smooth scrolling for navigation links
