@@ -624,10 +624,10 @@
     <!-- Header Navigation -->
     <header class="header">
         <div class="nav-container">
-            <div class="logo">
+            <a href = "#" class="logo" onclick="scrollToTop()">
                 <i class="fas fa-robot"></i>
                 AI for Educators
-            </div>
+            </a>
             <nav>
                 <ul class="nav-menu">
                     <li><a href="#course" class="nav-link">Course</a></li>
@@ -860,6 +860,12 @@
 
     <script>
         // Navigation functionality
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
         function openSyllabus() {
             // Navigate to the syllabus page
             window.location.href = 'syllabus.html';
@@ -867,7 +873,7 @@
 
         function openWeek(weekId) {
             // Navigate to the specific week page
-            window.location.href = '${weekId}.html';
+            window.location.href = `${weekId}.html`;
         }
 
         // Smooth scrolling for navigation links
